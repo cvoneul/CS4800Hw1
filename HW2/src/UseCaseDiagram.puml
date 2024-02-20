@@ -1,0 +1,21 @@
+@startuml
+'https://plantuml.com/use-case-diagram
+left to right direction
+:User:
+
+package CPP_Maps {
+    (Get Directions) as (get)
+    (Search Place Name) as (searchName)
+    (Search Place Category) as (searchCategory)
+    (Send Location to Friend) as (sendFriend)
+    (Send Location to App) as (sendApp)
+}
+
+User --> (get)
+User --> (searchName)
+User --> (searchCategory)
+User --> (sendFriend)
+User --> (sendApp)
+
+
+@enduml
