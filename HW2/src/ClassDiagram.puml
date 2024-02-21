@@ -1,0 +1,35 @@
+@startuml
+package CPP_Maps {
+    class Map {
+    GetDirections(start, dest): ArrayList<Location>
+    SearchPlaceByName(String place): ArrayList<Place>
+    ExplorePlaceByCategory(String place): ArrayList<Place>
+    }
+
+    class Location {
+    String address
+    }
+
+    class Place {
+    String name
+    }
+
+    class Category {
+    String category
+    }
+
+    Place o-- Category
+    Place *-- Location
+    Map o-- Place
+    Map o-- Location
+
+}
+
+interface App {
+SendLocation(Location loc)
+}
+
+CPP_Maps.Map --|> App
+
+@enduml
+
