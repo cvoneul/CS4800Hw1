@@ -1,0 +1,44 @@
+@startuml
+class Instructor {
+    - firstName: String
+    - lastName: String
+    - officeNumber: String
+    + getFirstName(): String
+    + setFirstName(s: string)
+    + getLastName(): String
+    + setLastName(s: Sting)
+    + getOfficeNumber(): String
+    + setOfficeNumber(s: String)
+    + toString(): String
+}
+class Textbook {
+    - title: String
+    - author: String
+    - publisher: String
+    + getTitle(): String
+    + setTitle(s: String)
+    + getAuthor(): String
+    + setAuthor(s: String)
+    + getPublisher(): String
+    + setPublisher(s: String)
+    + toString(): String
+}
+class Course {
+    - name: String
+    - instructors: ArrayList<Instructor>
+    - textbooks: ArrayList<Textbook>
+    + Course()
+    + getName(): String
+    + setName(s: String)
+    + getInstructors(): ArrayList<Instructor>
+    + setInstructor(instructor: Instructor)
+    + getTextbooks(): ArrayList<Textbook>
+    + setTextbook(text: Textbook)
+    + toString(): String
+    + printCourse()
+}
+
+Course "1" o-- "many" Instructor
+Course "1" o-- "many" Textbook
+
+@enduml

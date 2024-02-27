@@ -1,0 +1,73 @@
+@startuml
+object "<u> phpDemo1:Folder </u>" as demo {
+name = "php_demo1"
+subfolders = [sourceFiles, includePath, remoteFiles]
+files = null
+}
+
+object "<u> includePath:Folder </u>" as  demo1 {
+name = "Include Path"
+subfolders = null
+files = null
+}
+
+object "<u> remoteFiles:Folder </u>" as  demo2 {
+name = "Remote Files"
+subfolders = null
+files = null
+}
+
+object "<u> SourceFiles:Folder </u>" as  demo3 {
+name = "Source Files"
+subfolders = [.phalcon, cache, public]
+files = null
+}
+
+object "<u> .phalcon:Folder </u>" as  demo4 {
+name = ".phalcon"
+subfolders = null
+files = null
+}
+
+object "<u> cache:Folder </u>" as  demo5 {
+name = "cache"
+subfolders = null
+files = null
+}
+
+object "<u> public:Folder </u>" as demo6 {
+name = "public"
+subfolders = null
+files = [.htaccess, .htrouter.php, index.html]
+
+ }
+
+object "<u> .htaccess:File </u>" as demo7 {
+name = ".htaccess"
+}
+
+object "<u> .htrouter.php:File </u>" as demo8 {
+name = ".htrouter.php"
+}
+
+object "<u> index.html:File </u>" as demo9 {
+name = "index.html"
+}
+
+demo *-- demo1
+demo *-- demo2
+demo *-- demo3
+
+demo3 *-- demo4
+demo3 *-- demo5
+demo3 *-- demo6
+
+demo6 *-- demo7
+demo6 *-- demo8
+demo6 *-- demo9
+
+
+@enduml
+
+
+

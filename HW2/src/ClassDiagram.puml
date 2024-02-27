@@ -1,35 +1,52 @@
 @startuml
 package CPP_Maps {
     class Map {
-    GetDirections(start, dest): ArrayList<Location>
-    SearchPlaceByName(String place): ArrayList<Place>
-    ExplorePlaceByCategory(String place): ArrayList<Place>
+    displayMap()
+    displayDirections()
+    }
+
+    class Navigation {
+    ArrayList<Locations> route
+    findBestPathUsingDijkstras(start, end)
+    }
+
+    class SearchEngine {
+    searchByName()
+    searchByCategory()
+    }
+
+
+    class Place {
+    name
+    location
+    category
     }
 
     class Location {
-    String address
-    }
-
-    class Place {
-    String name
+    coordinates
     }
 
     class Category {
-    String category
+    categoryName
     }
 
-    Place o-- Category
-    Place *-- Location
-    Map o-- Place
-    Map o-- Location
 
+    Map --|> Location
+    Map -- Navigation
+
+    Navigation --|> Location
+    SearchEngine --|> Place
+
+    Place o-- Location
+    Place o-- Category
 }
 
 interface App {
-SendLocation(Location loc)
+sendLocation(location)
 }
 
-CPP_Maps.Map --|> App
+Navigation --|> App
 
 @enduml
+
 
