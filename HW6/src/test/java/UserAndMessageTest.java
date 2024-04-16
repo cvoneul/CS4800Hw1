@@ -1,5 +1,7 @@
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
+import java.util.Iterator;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserAndMessageTest {
@@ -103,6 +105,18 @@ public class UserAndMessageTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    public void IteratorTest() {
+        respondTest();
+
+        Iterator iterator = userC.iterator(userA);
+        while(iterator.hasNext()) {
+            Message m = (Message) iterator.next();
+            System.out.println( m.getTimestamp().toString() + ":: "
+                    + m.getRecipients().get(0).getName() + ": received message from:"
+                    + m.getSender().getName() + " : " + m.getMessageContent());
+        }
+    }
 
     @Test
     public void undoMessageTest() {
@@ -114,8 +128,9 @@ public class UserAndMessageTest {
         userA.sendMessage(message1);
         userA.sendMessage(message2);
 
-        String expected = "Do you have the launch codes?";
         userA.undoLastMessageSent();
+
+        String expected = "Do you have the launch codes?";
         String actual = ChatServer.getInstance().getChatHistory().getLastMessageSent().getMessageContent();
 
         assertEquals(expected, actual);

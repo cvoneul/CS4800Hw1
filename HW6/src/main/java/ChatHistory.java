@@ -1,6 +1,7 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
-public class ChatHistory {
+public class ChatHistory implements IterableByUser{
     private ArrayList<Message> messagesReceived;
     private ArrayList<Message> messagesSent;
 
@@ -10,8 +11,14 @@ public class ChatHistory {
     }
 
     public ChatHistory(ChatHistory chatHistory) {
-        messagesSent = chatHistory.getMessagesSent();
-        messagesReceived = chatHistory.getMessagesReceived();
+        messagesReceived = new ArrayList<>();
+        messagesSent = new ArrayList<>();
+       for(Message m: chatHistory.messagesSent) {
+           messagesSent.add(m);
+       }
+       for(Message m: chatHistory.messagesReceived) {
+           messagesReceived.add(m);
+       }
     }
 
     public void addToSentMessages(Message message) {
@@ -47,6 +54,9 @@ public class ChatHistory {
     }
 
     public Message getLastMessageSent() {
+        if(messagesSent.size() < 1) {
+            return new Message(null, "empty", null);
+        }
         return messagesSent.get(messagesSent.size() - 1);
     }
 
@@ -68,5 +78,10 @@ public class ChatHistory {
 
     public void setMessagesSent(ArrayList<Message> messagesSent) {
         this.messagesSent = messagesSent;
+    }
+
+    @Override
+    public Iterator iterator(User userToSearchWith) {
+        return new SearchMessagesByUser(userToSearchWith);
     }
 }

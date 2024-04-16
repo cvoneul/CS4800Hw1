@@ -29,14 +29,13 @@ public class ChatServer {
     }
 
     public void sendMessage(User sender, ArrayList<User> recipients, Message message) {
-        memento.setMessageState(chatHistory);
+        memento = new MessageMemento(chatHistory);
 
         for(User recipient: recipients) {
             if( !isBlocked(recipient,sender) ) {
                 recipient.receiveMessage(message, sender);
             }
         }
-
         chatHistory.addToSentMessages(message);
     }
 
