@@ -9,6 +9,11 @@ public class ChatHistory {
         messagesSent = new ArrayList<>();
     }
 
+    public ChatHistory(ChatHistory chatHistory) {
+        messagesSent = chatHistory.getMessagesSent();
+        messagesReceived = chatHistory.getMessagesReceived();
+    }
+
     public void addToSentMessages(Message message) {
         messagesSent.add(message);
     }
@@ -17,19 +22,27 @@ public class ChatHistory {
         messagesReceived.add(message);
     }
 
+    public void removeLastSentAndReceivedMessage() {
+        removeLastReceivedMessage();
+        removeLastSentMessage();
+    }
+
+    public ArrayList<Message> getAllMessagesOf(User user) {
+        ArrayList<Message> userHistory = new ArrayList<>();
+
+        for(Message m: messagesSent) {
+            if(m.getSender() == user) {
+                userHistory.add(m);
+            }
+        }
+        return userHistory;
+    }
+
     public void removeLastSentMessage() {
         messagesSent.remove(messagesSent.size() - 1);
     }
 
-    public void removeLastFromReceived(User user) {
-        //todo
-    }
-
-    public void removeLastFromSent(User user) {
-        messagesSent.remove(user);
-    }
-
-    public void removeReceivedMessage() {
+    public void removeLastReceivedMessage() {
         messagesReceived.remove(messagesReceived.size() - 1);
     }
 
@@ -39,5 +52,21 @@ public class ChatHistory {
 
     public Message getLastMessageReceived() {
         return messagesReceived.get(messagesReceived.size() - 1);
+    }
+
+    public ArrayList<Message> getMessagesReceived() {
+        return messagesReceived;
+    }
+
+    public void setMessagesReceived(ArrayList<Message> messagesReceived) {
+        this.messagesReceived = messagesReceived;
+    }
+
+    public ArrayList<Message> getMessagesSent() {
+        return messagesSent;
+    }
+
+    public void setMessagesSent(ArrayList<Message> messagesSent) {
+        this.messagesSent = messagesSent;
     }
 }

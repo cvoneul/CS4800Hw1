@@ -1,39 +1,27 @@
+import java.util.ArrayList;
 
 public class User {
     private String name;
-    private MessageMemento memento;
-    private ChatHistory chatHistory;
 
     public User(String name) {
         this.name = name;
-        memento = new MessageMemento("");
-        chatHistory = new ChatHistory();
     }
 
     public void sendMessage(Message message) {
-        try {
-            memento.setMessageState(chatHistory.getLastMessageSent().getMessageContent());
-        }catch (IndexOutOfBoundsException e) {}
-
-        ChatServer.sendMessage(this, message.getRecipients(), message);
-
-        chatHistory.addToSentMessages(message);
+        ChatServer.getInstance().sendMessage(this, message.getRecipients(), message);
     }
 
     public void receiveMessage(Message message, User user) {
         System.out.println(getName() + ": received message from:" + user.getName() + " : " + message.getMessageContent());
-        chatHistory.addToReceivedMessages(message);
+        ChatServer.getInstance().getChatHistory().addToReceivedMessages(message);
     }
 
-    public ChatHistory viewChatHistory(User user) {
-        return ChatServer.viewChatHistory(user);
+    public ArrayList<Message> getUserChatHistory(User user) {
+        return ChatServer.getInstance().viewChatHistory(user);
     }
 
-
-    public String undoLastMessageSent() {
-        ChatServer.deleteLastMessageReceived(chatHistory.getLastMessageSent());
-        chatHistory.removeLastSentMessage();
-        return memento.getMessageState();
+    public void undoLastMessageSent() {
+        ChatServer.getInstance().undo();
     }
 
 
@@ -43,14 +31,6 @@ public class User {
 
     public String getName() {
         return name;
-    }
-
-    public ChatHistory getChatHistory() {
-        return chatHistory;
-    }
-
-    public void setChatHistory(ChatHistory chatHistory) {
-        this.chatHistory = chatHistory;
     }
 
 }

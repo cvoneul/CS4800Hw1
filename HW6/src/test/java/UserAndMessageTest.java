@@ -9,6 +9,7 @@ public class UserAndMessageTest {
     private User userD = new User("Vivek");
     private ArrayList<User> recipientsForA;
     private ArrayList<User> recipientsForB;
+    private BlockedList b = new BlockedList(userB);
 
 
     @Test
@@ -21,7 +22,7 @@ public class UserAndMessageTest {
 
         String expected = "Do you have the launch codes?";
 
-        String actual = userA.getChatHistory().getLastMessageSent().getMessageContent();
+        String actual = ChatServer.getInstance().getChatHistory().getLastMessageSent().getMessageContent();
 
         assertEquals(expected, actual);
     }
@@ -35,7 +36,7 @@ public class UserAndMessageTest {
         userA.sendMessage(message);
 
         String expected = "Do you have the launch codes?";
-        String actual = userB.getChatHistory().getLastMessageReceived().getMessageContent();
+        String actual = ChatServer.getInstance().getChatHistory().getLastMessageReceived().getMessageContent();
 
         assertEquals(expected, actual);
     }
@@ -52,13 +53,11 @@ public class UserAndMessageTest {
         userA.sendMessage(message);
 
         String expected = "Do you have the launch codes?";
-        String actual1 = userB.getChatHistory().getLastMessageReceived().getMessageContent();
-        String actual2 = userC.getChatHistory().getLastMessageReceived().getMessageContent();
-        String actual3 = userD.getChatHistory().getLastMessageReceived().getMessageContent();
-        String actual4 = userA.getChatHistory().getLastMessageSent().getMessageContent();
 
-        assertEquals(expected, actual1, actual2);
-        assertEquals(expected, actual3, actual4);
+        ArrayList<Message> messages = ChatServer.getInstance().viewChatHistory(userA);
+        String actual = messages.get(messages.size()-1).getMessageContent();
+
+        assertEquals(expected, actual, actual);
     }
 
     @Test
@@ -75,14 +74,51 @@ public class UserAndMessageTest {
         userB.sendMessage(messageBack);
 
         String expected = "I dont remember";
-        String actual1 = userB.getChatHistory().getLastMessageSent().getMessageContent();
-        String actual2 = userA.getChatHistory().getLastMessageReceived().getMessageContent();
+        String actual1 = ChatServer.getInstance().getChatHistory().getLastMessageSent().getMessageContent();
+        String actual2 = ChatServer.getInstance().getChatHistory().getLastMessageReceived().getMessageContent();
         assertEquals(expected, actual1, actual2);
     }
 
     @Test
+    public void blockedTest() {
+        recipientsForA = new ArrayList<>();
+        recipientsForA.add(userB);
+
+        Message message = new Message(userA,"Im spamming you with messages", recipientsForA);
+        userA.sendMessage(message);
+
+        ArrayList<User> usersBHasBlocked = new ArrayList<>();
+        usersBHasBlocked.add(userA);
+        b.setBlocked(usersBHasBlocked);
+        ChatServer.getInstance().getBlockedList().add(b);
+
+        Message message2 = new Message(userA,"Im spamming you with messages #2", recipientsForA);
+
+        userA.sendMessage(message2);
+
+        String expected = "Im spamming you with messages";
+
+        String actual = ChatServer.getInstance().getChatHistory().getLastMessageReceived().getMessageContent();
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
     public void undoMessageTest() {
-        ;
+        recipientsForA = new ArrayList<>();
+        recipientsForA.add(userB);
+        Message message1 = new Message(userA,"Do you have the launch codes?", recipientsForA);
+        Message message2 = new Message(userA, "This new message should get undo-ed", recipientsForA);
+
+        userA.sendMessage(message1);
+        userA.sendMessage(message2);
+
+        String expected = "Do you have the launch codes?";
+        userA.undoLastMessageSent();
+        String actual = ChatServer.getInstance().getChatHistory().getLastMessageSent().getMessageContent();
+
+        assertEquals(expected, actual);
     }
 
 }
