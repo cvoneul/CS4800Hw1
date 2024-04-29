@@ -2,7 +2,6 @@ import java.io.IOException;
 
 public class Driver {
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-
         CharacterProperties charProp1 = CharacterPropertiesFactory.getCharacterProperties("Arial", "Red", 12);
         CharacterProperties charProp2 = CharacterPropertiesFactory.getCharacterProperties("Calibri", "Blue", 14);
         CharacterProperties charProp3 = CharacterPropertiesFactory.getCharacterProperties("Verdana", "Black", 16);
