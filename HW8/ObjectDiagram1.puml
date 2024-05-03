@@ -1,0 +1,204 @@
+@startuml
+object "<u> testDocument:Document </u>" as doc {
+characters: ArrayList<Character> = [char1,char2,char3,char4,char5,char6,char7,char8,char9,char10,char11,char12,char13,char14,char15,char16]
+propertiesFactory = PropertiesFactory1
+}
+
+object PropertiesFactory1 {
+map: HashMap<String, CharacterProperties> = {"Arial16Black" -> charProp1, "Arial14Black" -> charProp2, "Verdana18Blue" -> charProp3, "Verdana12Red" -> charProp4}
+}
+
+object char1 {
+character = 'H'
+characterProperty =  charProp1
+}
+object char2 {
+character = 'e'
+characterProperty =  charProp2
+}
+object char3 {
+character = 'l'
+characterProperty =  charProp2
+}
+object char4 {
+character = 'l'
+characterProperty =  charProp2
+}
+object char5 {
+character = 'o'
+characterProperty =  charProp2
+}
+object char6 {
+character = 'W'
+characterProperty =  charProp1
+}
+object char7 {
+character = 'o'
+characterProperty =  charProp2
+}
+object char8 {
+character = 'r'
+characterProperty =  charProp2
+}
+object char9 {
+character = 'l'
+characterProperty =  charProp2
+}
+object char10 {
+character = 'd'
+characterProperty =  charProp2
+}
+object char11 {
+character = 'C'
+characterProperty =  charProp3
+}
+object char12 {
+character = 'S'
+characterProperty =  charProp3
+}
+object char13 {
+character = '5'
+characterProperty =  charProp4
+}
+object char14 {
+character = '8'
+characterProperty =  charProp4
+}
+object char15 {
+character = '0'
+characterProperty =  charProp4
+}
+object char16 {
+character = '0'
+characterProperty =  charProp4
+}
+
+
+object charProp1 {
+font = "Arial"
+color = "Black"
+size = "16"
+}
+object charProp2 {
+font = "Arial"
+color = "Black"
+size = "14"
+}
+object charProp3 {
+font = "Verdana"
+color = "Blue"
+size = "18"
+}
+object charProp4 {
+font = "Verdana"
+color = "Red"
+size = "12"
+}
+
+
+doc o-- PropertiesFactory1
+
+
+
+
+object "<u> readDocumentVerify:Document </u>" as verdoc {
+characters: ArrayList<Character> = [char1A,char2A,char3A,char4A,char5A,char6A,char7A,char8A,char9A,char10A,char11A,char12A,char13A,char14A,char15A,char16A]
+propertiesFactory = PropertiesFactory2
+}
+
+object PropertiesFactory2 {
+map: HashMap<String, CharacterProperties> = {"Arial16Black" -> charProp1A, "Arial14Black" -> charProp2A, "Verdana18Blue" -> charProp3A, "Verdana12Red" -> charProp4A}
+}
+
+
+object char1A {
+character = 'H'
+characterProperty =  charProp1A
+}
+object char2A {
+character = 'e'
+characterProperty =  charProp2A
+}
+object char3A {
+character = 'l'
+characterProperty =  charProp2A
+}
+object char4A {
+character = 'l'
+characterProperty =  charProp2A
+}
+object char5A {
+character = 'o'
+characterProperty =  charProp2A
+}
+object char6A {
+character = 'W'
+characterProperty =  charProp1A
+}
+object char7A {
+character = 'o'
+characterProperty =  charProp2A
+}
+object char8A {
+character = 'r'
+characterProperty =  charProp2A
+}
+object char9A {
+character = 'l'
+characterProperty =  charProp2A
+}
+object char10A {
+character = 'd'
+characterProperty =  charProp2A
+}
+object char11A {
+character = 'C'
+characterProperty =  charProp3A
+}
+object char12A {
+character = 'S'
+characterProperty =  charProp3A
+}
+object char13A {
+character = '5'
+characterProperty =  charProp4A
+}
+object char14A {
+character = '8'
+characterProperty =  charProp4A
+}
+object char15A {
+character = '0'
+characterProperty =  charProp4A
+}
+object char16A {
+character = '0'
+characterProperty =  charProp4A
+}
+
+object charProp1A {
+font = "Arial"
+color = "Black"
+size = "16"
+}
+object charProp2A {
+font = "Arial"
+color = "Black"
+size = "14"
+}
+object charProp3A {
+font = "Verdana"
+color = "Blue"
+size = "18"
+}
+object charProp4A {
+font = "Verdana"
+color = "Red"
+size = "12"
+}
+
+
+
+verdoc o-- PropertiesFactory2
+
+@enduml
