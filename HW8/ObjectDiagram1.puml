@@ -1,4 +1,5 @@
 @startuml
+
 object "<u> testDocument:Document </u>" as doc {
 characters: ArrayList<Character> = [char1,char2,char3,char4,char5,char6,char7,char8,char9,char10,char11,char12,char13,char14,char15,char16]
 propertiesFactory = PropertiesFactory1
@@ -97,6 +98,7 @@ size = "12"
 
 
 doc o-- PropertiesFactory1
+
 
 
 
@@ -200,5 +202,6 @@ size = "12"
 
 
 verdoc o-- PropertiesFactory2
+
 
 @enduml
